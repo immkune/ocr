@@ -17,8 +17,8 @@ from selenium_stealth import stealth
 from dotenv import load_dotenv
 import chromedriver_binary
 
-display = Display(visible=0, size=(800, 600))
-display.start()
+#display = Display(visible=0, size=(800, 600))
+#display.start()
 
 cb = '''      
          ) (       )              (        
@@ -158,21 +158,21 @@ def sele(email):
                     element = driver.find_element(By.CSS_SELECTOR, ".flash")
                     text = element.get_attribute('innerText')
                     if "An account already exists with this email address." in text:
-                        tx = open('valid.txt', 'a+')
+                        tx = open('result/valid.txt', 'a+')
                         tx.write('\n')
                         tx.writelines(email)
                         tx.close()  
                         print(f'{Fore.LIGHTWHITE_EX}[#]{Fore.LIGHTGREEN_EX} {email} {Fore.LIGHTWHITE_EX}={Fore.LIGHTCYAN_EX} Valid')
                         driver.quit()
                 except NoSuchElementException:
-                    tx = open('die.txt', 'a+')
+                    tx = open('result/die.txt', 'a+')
                     tx.write('\n')
                     tx.writelines(email)
                     tx.close()  
                     print(f'{Fore.LIGHTWHITE_EX}[#]{Fore.LIGHTGREEN_EX} {email} {Fore.LIGHTWHITE_EX}={Fore.LIGHTRED_EX} Die')
                     driver.quit()
             except TimeoutException:
-                tx = open('proxy.txt', 'a+')
+                tx = open('result/proxy.txt', 'a+')
                 tx.write('\n')
                 tx.writelines(email)
                 tx.close()  
@@ -185,5 +185,5 @@ def sele(email):
         sys.exit()
 
 
-with concurrent.futures.ProcessPoolExecutor(max_workers=15) as executor:
+with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
     executor.map(sele, emailist)
