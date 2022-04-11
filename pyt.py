@@ -1,5 +1,6 @@
 import sys, os, zipfile
 import concurrent.futures
+import proxy
 from pyvirtualdisplay import Display
 from colorama import Fore
 from bs4 import BeautifulSoup
@@ -16,8 +17,8 @@ from selenium_stealth import stealth
 from dotenv import load_dotenv
 import chromedriver_binary
 
-#display = Display(visible=0, size=(800, 600))
-#display.start()
+display = Display(visible=0, size=(800, 600))
+display.start()
 
 cb = '''      
          ) (       )              (        
@@ -107,11 +108,10 @@ def proxies(username, password, endpoint, port):
     return extension
 
 def main(email):
-    load_dotenv()
-    username = os.getenv('username')
-    password = os.getenv('password')
-    endpoint = os.getenv('host')
-    port = os.getenv('port')
+    username = proxy.host
+    password = proxy.password
+    endpoint = proxy.host
+    port = proxy.port
     opt = webdriver.ChromeOptions()
     proxies_extension = proxies(username, password, endpoint, port)
     opt.add_experimental_option("excludeSwitches", ["enable-automation"])
