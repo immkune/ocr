@@ -181,3 +181,10 @@ def main():
     if api in apikey:
         with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
             executor.map(sele, emailist)
+    else:
+        print('Your Apikey has expired')
+        os._exit(0)
+
+
+if __name__=="__main__":
+    main()
