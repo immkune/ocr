@@ -43,7 +43,7 @@ tot = len(lime)
 for line in lime:
     emailist.append(line)
 
-print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total List = {Fore.LIGHTWHITE_EX}{tot} {Fore.LIGHTMAGENTA_EX}\n')
+print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total List = {Fore.LIGHTWHITE_EX}{tot}\n')
 
 def proxies(username, password, endpoint, port):
     manifest_json = """
