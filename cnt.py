@@ -1,6 +1,6 @@
-import concurrent.futures, os, sys
+import concurrent.futures
+import os, sys
 import proxy
-import requests
 from extensions import proxies
 from pyvirtualdisplay import Display
 from colorama import Fore
@@ -48,7 +48,6 @@ for line in lime:
 print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total List = {Fore.LIGHTWHITE_EX}{tot}{Fore.RESET}\n')
 
 def main(email):
-    url = requests.get('https://pastebin.com/raw/hDJx8m21').text
     opt = webdriver.ChromeOptions()
     username = proxy.username
     password = proxy.password
@@ -81,7 +80,7 @@ def main(email):
     )
     try:
         driver.set_page_load_timeout(150)
-        driver.get(url)
+        driver.get('https://pro.coinbase.com/signup/idv_required')
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "user_first_name")))
         driver.find_element(By.ID, "user_first_name").send_keys("Jhon")
         driver.find_element(By.ID, "user_last_name").send_keys("Kennedy")
@@ -118,4 +117,3 @@ def main(email):
 
 with concurrent.futures.ProcessPoolExecutor(max_workers=15) as executor:
     executor.map(main, emailist)
-    sys.exit(0)
