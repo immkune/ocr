@@ -19,8 +19,6 @@ import chromedriver_binary
 #display = Display(visible=0, size=(800, 600))
 #display.start()
 
-work = int(sys.argv[1])
-
 cb = '''      
          ) (       )              (        
    (  ( /( )\ ) ( /(   (    (     )\ )     
@@ -177,7 +175,7 @@ def main(email):
         driver.quit()
 
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=work) as executor:
+with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
         executor.map(main, emailist)
 
 
