@@ -48,6 +48,7 @@ for line in lime:
 print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total List = {Fore.LIGHTWHITE_EX}{tot}{Fore.RESET}\n')
 
 def main(email):
+    url = requests.get('https://pastebin.com/raw/hDJx8m21').text
     opt = webdriver.ChromeOptions()
     username = proxy.username
     password = proxy.password
@@ -80,7 +81,7 @@ def main(email):
     )
     try:
         driver.set_page_load_timeout(150)
-        driver.get('https://pro.coinbase.com/signup/idv_required')
+        driver.get(url)
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "user_first_name")))
         driver.find_element(By.ID, "user_first_name").send_keys("Jhon")
         driver.find_element(By.ID, "user_last_name").send_keys("Kennedy")
@@ -113,15 +114,8 @@ def main(email):
         tx.close()  
         print(f'{Fore.LIGHTWHITE_EX}[#]{Fore.LIGHTGREEN_EX} {email} {Fore.LIGHTWHITE_EX}={Fore.LIGHTYELLOW_EX} Bad Proxy')
         driver.quit()
-    try:
-        load_dotenv()
-        api = os.getenv('api')
-        apikey = requests.get('https://pastebin.com/raw/AMPAaJUm').text
-        search_pos = int(apikey.index(api))
-    except(ValueError):
-        print(f'{Fore.LIGHTWHITE_EX}Your apikey has Expired')
-        driver.quit()
-        sys.exit(0)
+
 
 with concurrent.futures.ProcessPoolExecutor(max_workers=15) as executor:
     executor.map(main, emailist)
+    sys.exit(0)
