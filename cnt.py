@@ -47,49 +47,42 @@ for line in lime:
 
 print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total List = {Fore.LIGHTWHITE_EX}{tot}{Fore.RESET}\n')
 
-def findElement(listName, searchElement):
-  for value in listName:
-    if value == searchElement:
-      return True
-
-    return False
-
-
 def main(email):
-    load_dotenv()
-    api = os.getenv('api')
-    apikey = requests.get('https://pastebin.com/raw/AMPAaJUm').text
-    opt = webdriver.ChromeOptions()
-    username = proxy.username
-    password = proxy.password
-    endpoint = proxy.host
-    port = proxy.port
-    proxies_extension = proxies(username, password, endpoint, port)
-    opt.add_experimental_option("excludeSwitches", ["enable-automation"])
-    opt.add_experimental_option('useAutomationExtension', False)
-    opt.add_extension(proxies_extension)
-    opt.add_argument("--no-sandbox")
-    opt.add_argument('ignore-certificate-errors')
-    opt.add_argument('--disable-gpu')
-    opt.add_argument('--no-sandbox')
-    opt.add_argument("--disable-dev-shm-usage")
-    opt.add_argument('--ignore-certificate-errors-spki-list')
-    opt.add_argument('--disable-notifications')
-    opt.add_argument('--disable-setuid-sandbox')
-    opt.add_argument("--disable-dev-shm-usage")
-    opt.add_argument("--disable-cookie-encryption")
-    opt.add_argument("--disable-blink-features=AutomationControlled")
-    opt.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36")    
-    driver = webdriver.Chrome(options=opt)
-    stealth(driver,
-        languages=["en-US", "en"],
-        vendor="Google Inc.",
-        platform="Win32",
-        webgl_vendor="Intel Inc.",
-        renderer="Intel Iris OpenGL Engine",
-        fix_hairline=True,
-    )
-    if findElement(apikey, api):
+    try:
+        load_dotenv()
+        api = os.getenv('api')
+        apikey = requests.get('https://pastebin.com/raw/AMPAaJUm').text
+        search_pos = int(apikey.index(api))
+        opt = webdriver.ChromeOptions()
+        username = proxy.username
+        password = proxy.password
+        endpoint = proxy.host
+        port = proxy.port
+        proxies_extension = proxies(username, password, endpoint, port)
+        opt.add_experimental_option("excludeSwitches", ["enable-automation"])
+        opt.add_experimental_option('useAutomationExtension', False)
+        opt.add_extension(proxies_extension)
+        opt.add_argument("--no-sandbox")
+        opt.add_argument('ignore-certificate-errors')
+        opt.add_argument('--disable-gpu')
+        opt.add_argument('--no-sandbox')
+        opt.add_argument("--disable-dev-shm-usage")
+        opt.add_argument('--ignore-certificate-errors-spki-list')
+        opt.add_argument('--disable-notifications')
+        opt.add_argument('--disable-setuid-sandbox')
+        opt.add_argument("--disable-dev-shm-usage")
+        opt.add_argument("--disable-cookie-encryption")
+        opt.add_argument("--disable-blink-features=AutomationControlled")
+        opt.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36")    
+        driver = webdriver.Chrome(options=opt)
+        stealth(driver,
+            languages=["en-US", "en"],
+            vendor="Google Inc.",
+            platform="Win32",
+            webgl_vendor="Intel Inc.",
+            renderer="Intel Iris OpenGL Engine",
+            fix_hairline=True,
+        )
         try:
             driver.set_page_load_timeout(150)
             driver.get('https://pro.coinbase.com/signup/idv_required')
@@ -125,8 +118,9 @@ def main(email):
             tx.close()  
             print(f'{Fore.LIGHTWHITE_EX}[#]{Fore.LIGHTGREEN_EX} {email} {Fore.LIGHTWHITE_EX}={Fore.LIGHTYELLOW_EX} Bad Proxy')
             driver.quit()
-    else:
-        print(f'{Fore.RESET}Your apikey has expired')
+    except(ValueError):
+        print(f'{Fore.LIGHTWHITE_EX}Your apikey has Expired')
+        driver.quit()
         sys.exit(0)
 
 with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
