@@ -36,7 +36,6 @@ cb = '''
 
 print(f'{Fore.LIGHTMAGENTA_EX}{cb}{Fore.RESET}===========================================\n')
 
-apikey = requests.get('https://pastebin.com/raw/AMPAaJUm').text
 
 emailist = []
 
@@ -117,6 +116,7 @@ def proxies(username, password, endpoint, port):
 
 def sele(email):
     load_dotenv()
+    apikey = requests.get('https://pastebin.com/raw/AMPAaJUm').text
     api = os.getenv('api')
     if findElement(apikey, api):
         username = proxy.username
