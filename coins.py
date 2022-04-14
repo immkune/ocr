@@ -184,7 +184,7 @@ def api():
   api_code = os.getenv('api')
   apikey = requests.get('https://pastebin.com/raw/AMPAaJUm').text
   if api_code in apikey:
-    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=13) as executor:
         executor.map(login, emailist)
         sys.exit(0)
   else:
