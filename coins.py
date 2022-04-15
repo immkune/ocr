@@ -43,9 +43,6 @@ lime = mailist.read().splitlines()
 tot = len(lime)
 for line in lime:
   emailist.append(line)
-  
-print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total your list = {Fore.LIGHTWHITE_EX}{tot}{Fore.RESET}')
-print(f'{Fore.LIGHTWHITE_EX}~>{Fore.LIGHTYELLOW_EX} Wait a second......\n')
 
 def proxies(username, password, endpoint, port):
     manifest_json = """
@@ -183,8 +180,12 @@ def api():
   load_dotenv()
   api_code = os.getenv('api')
   apikey = requests.get('https://pastebin.com/raw/AMPAaJUm').text
+  work = int(input("Set Your Thread: "))
+  print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total your List = {Fore.LIGHTWHITE_EX}{tot}{Fore.RESET}')
+  print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total your Thread = {Fore.LIGHTWHITE_EX}{work}{Fore.RESET}')
+  print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTYELLOW_EX} Wait a second......\n')
   if api_code in apikey:
-    with concurrent.futures.ThreadPoolExecutor(max_workers=22) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=work) as executor:
         executor.map(login, emailist)
         sys.exit(0)
   else:
