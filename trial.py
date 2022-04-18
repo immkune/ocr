@@ -185,16 +185,15 @@ def login(emails):
 
 
 def main():
-  work = int(input("Set Your Thread: "))
   print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total your List = {Fore.LIGHTWHITE_EX}{tot}{Fore.RESET}')
-  print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total your Thread = {Fore.LIGHTWHITE_EX}{work}{Fore.RESET}')
+  print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTGREEN_EX} Total your Thread = {Fore.LIGHTWHITE_EX}5{Fore.RESET}')
   print(f'{Fore.LIGHTWHITE_EX}>{Fore.LIGHTYELLOW_EX} Wait a second......\n')
   try:
     load_dotenv()
     api_c = os.getenv('api')
     apikey = requests.get('https://pastebin.com/raw/AMPAaJUm').text
     if api_c in apikey:
-      with concurrent.futures.ThreadPoolExecutor(max_workers=work) as executor:
+      with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
           executor.map(login, emailist)
   except:
     print(f'{Fore.LIGHTWHITE_EX}\n[+]{Fore.LIGHTRED_EX} Your Apikey Has Expired{Fore.LIGHTWHITE_EX} [+]')
